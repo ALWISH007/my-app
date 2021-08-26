@@ -1,0 +1,154 @@
+<div>
+    <h3>Registration Form</h3>
+</div>
+<div class="container">
+
+    <form #userform="ngForm" (ngSubmit)="onSubmit(userform)" class="row g-3">
+
+
+        <div class="form-group" class="col-md-6">
+            <mat-form-field appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input #focus #firstname="ngModel" required matInput class="form-control" minlength="3"
+                    name="first name" [(ngModel)]="firstName">
+                <mat-hint class="hint" *ngIf="firstname.invalid && firstname.touched && firstname.pristine">FirstName is
+                    required</mat-hint>
+                <mat-hint class="hint" *ngIf="firstname.invalid && firstname.dirty">Min 3 characters</mat-hint>
+            
+
+
+            </mat-form-field>
+        </div>
+
+
+        <div class="form-group" class="col-md-6">
+            <mat-form-field appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input #lastname="ngModel" required matInput class="form-control" minlength="3" name="last name"
+                    [(ngModel)]="lastName">
+                <mat-hint class="hint" *ngIf="lastname.invalid && lastname.touched && lastname.pristine">Last Name is
+                    required</mat-hint>
+                <mat-hint class="hint" *ngIf="lastname.invalid && lastname.dirty">Last Name is required</mat-hint>
+            </mat-form-field>
+
+        </div>
+        <div class="form-group" class="col-md-12">
+            <label id="SelectOption">Gender</label>
+            <mat-radio-group #gender="ngModel" required aria-label="SelectOption" class="form-control" name="gender"
+                ngModel><br>
+                <mat-radio-button color="primary" value="male">Male</mat-radio-button>
+                <mat-radio-button color="primary" value="female">Female</mat-radio-button>
+                <mat-radio-button color="primary" value="others">Others</mat-radio-button>
+            </mat-radio-group>
+
+
+        </div>
+        <div class="form-group" class="col-md-6">
+            <mat-form-field appearance="outline">
+                <mat-label>Date of Birth</mat-label>
+                <input #datebirth="ngModel" required matInput [matDatepicker]="picker" class="form-control" name="DOB"
+                    [(ngModel)]="dob">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-hint class="hint" *ngIf="datebirth.invalid && datebirth.touched">Select DOB</mat-hint>
+
+            </mat-form-field>
+
+
+
+        </div>
+        <div class="form-group" class="col-md-6">
+            <mat-form-field appearance="outline">
+                <mat-label>Age</mat-label>
+                <input #Age="ngModel" required matInput class="form-control" name="age" [(ngModel)]="age"
+                    (click)="agecalculator(dob)">
+                <mat-hint class="hint" *ngIf="Age.invalid && Age.touched">Select Age</mat-hint>
+            </mat-form-field>
+
+        </div>
+
+        <div class="form-group" class="col-md-6">
+            <mat-form-field appearance="outline">
+                <mat-label>AddressLine1</mat-label>
+                <textarea #address1 required matInput class="form-control" name="addressline1"
+                    [(ngModel)]="addressLine1"></textarea>
+
+            </mat-form-field>
+
+        </div>
+        <div class="form-group" class="col-md-6">
+            <mat-form-field appearance="outline">
+                <mat-label>AddressLine2</mat-label>
+                <textarea #address2 required matInput class="form-control" name="addressline2"
+                    [(ngModel)]="addressLine2"></textarea>
+
+            </mat-form-field>
+
+        </div>
+        <div class="form-group" class="col-md-6">
+            <mat-form-field hintLabel="Enter 10 digits" appearance="outline">
+                <mat-label>Enter Phone Number</mat-label>
+                <input required matInput #input maxlength="10" class="form-control" name="phone"
+                    [(ngModel)]="phoneNumber" pattern="^\d{10}$">
+                <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
+            </mat-form-field>
+
+        </div>
+        <div class="form-group" class="col-md-6">
+            <mat-form-field hintLabel="Enter 6 digits" appearance="outline">
+                <mat-label>Enter Pincode</mat-label>
+                <input required matInput #pinncode maxlength="6" required class="form-control" name="pincode"
+                    [(ngModel)]="pincode" pattern="^\d{6}$">
+                <mat-hint align="end">{{pinncode.value?.length || 0}}/6</mat-hint>
+            </mat-form-field>
+
+        </div>
+
+        <div class="form-group" class="col-md-6">
+            <mat-form-field appearance="outline">
+                <mat-label>State</mat-label>
+                <input required matInput class="form-control" name="state" [(ngModel)]="state"
+                    (click)="getStateAndDistrict()">
+            </mat-form-field>
+
+        </div>
+
+        <div class="form-group" class="col-md-6">
+            <mat-form-field appearance="outline">
+                <mat-label>District</mat-label>
+                <input required matInput class="form-control" name="district" [(ngModel)]="district">
+            </mat-form-field>
+
+        </div>
+        <div class="form-group" class="col-md-12">
+            <mat-form-field class="columns">
+                <mat-label *ngIf="selectedFiles; else newFile">{{selectedFiles.item(0).name}}</mat-label>
+                <ng-template #newFile>
+                    <mat-label>Choose file</mat-label>
+                </ng-template>
+                <input matInput disabled>
+                <button mat-icon-button matSuffix (click)="fileInput.click()">
+                    <mat-icon>add_a_photo</mat-icon>
+                </button>
+                <input hidden (change)="selectFile($event)" #fileInput type="file" id="file"
+                    accept="image/jpeg, .jpeg, image/png, .png, image/pjpeg, .jpg" class="form-control" name="photo"
+                    [(ngModel)]="photo">
+            </mat-form-field>
+
+        </div>
+
+
+
+        <a routerLinkActive="active" routerLink="/user-details">
+            <button [disabled]="userform.invalid" mat-raised-button color="primary" type="submit" class="button"
+                routeLink="user-details">SAVE</button>
+        </a>
+
+
+
+
+
+
+
+    </form>
+</div>
