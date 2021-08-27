@@ -61,8 +61,11 @@
             <mat-form-field appearance="outline">
                 <mat-label>Age</mat-label>
                 <input #Age="ngModel" required matInput class="form-control" name="age" [(ngModel)]="age"
-                    (click)="agecalculator(dob)">
-                <mat-hint class="hint" *ngIf="Age.invalid && Age.touched">Select Age</mat-hint>
+                    (click)="agecalculator(dob)" pattern="[0-1]{1}[0-9]{0,2}">
+                <mat-hint class="hint" *ngIf="Age.invalid && Age.touched && Age.errors?.pattern">enter valid age</mat-hint>
+                <mat-hint class="hint" *ngIf="Age.invalid && Age.touched && !Age.errors?.pattern">Select Age</mat-hint>
+                
+                
             </mat-form-field>
 
         </div>
