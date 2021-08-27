@@ -33,14 +33,21 @@ export class RegistrationFormComponent implements OnInit, AfterViewInit {
   selectedFiles: any;
   data: any;
 
+  //
+
   @ViewChild('focus')
   focusfirst!: ElementRef;
   ngAfterViewInit() {
     this.focusfirst.nativeElement.focus();
   }
+
+
+
   constructor(private _postalservice: PostalserviceService) {
 
   }
+
+
   nativeElement: any;
   getStateAndDistrict() {
     this._postalservice.getpostaldetails(this.pincode).subscribe(data => {
@@ -53,15 +60,19 @@ export class RegistrationFormComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
   }
+
   selectFile(event: any) {
     this.selectedFiles = event.target.files;
   }
+
   onSubmit(value: any) {
     this.result = JSON.stringify(value.value);
     console.log(this.result);
     localStorage.setItem('userdata', this.result);
 
   }
+
+
   agecalculator(dob: any): void {
     let age;
     dob = this.dob;
